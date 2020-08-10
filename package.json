@@ -1,0 +1,21 @@
+{
+  "name": "lin-mini-cli",
+  "version": "0.1.0",
+  "description": "微信小程序按需打包脚手架",
+  "main": "lib/index.js",
+  "scripts": {
+    "release": "tsc",
+    "dev": "tsc --watch"
+  },
+  "bin": {
+    "lin-mini-cli": "lib/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.0.27"
+  },
+  "dependencies": {
+    "commander": "^6.0.0"
+  }
+}
