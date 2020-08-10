@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, writeFile, readFileSync, PathLike, access, constants } from 'fs'
+import { existsSync, mkdirSync, readFileSync, PathLike, writeFileSync } from 'fs'
 import { BASE_DIR, NODE_MODULES_DIR_NAME } from './config'
 /**
  * @name lin-mini-cli缓存系统
@@ -53,11 +53,7 @@ class LinCache {
     private _writeCacheFile(data: object) {
         if (Object.prototype.toString.call(data) === '[object Object]') {
             const formatJson = JSON.stringify(data, null, 2)
-            writeFile(this._cacheFile, formatJson, (err) => {
-                if (err) {
-                    return console.log(err);
-                }
-            });
+            writeFileSync(this._cacheFile, formatJson);
         } else {
             console.log(data, '缓存必须为对象格式')
         }

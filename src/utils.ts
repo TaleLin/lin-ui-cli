@@ -36,9 +36,10 @@ export function getStr(str: string, start: string, end: string): string | null {
  * @name 获取数组/对象下的所有组件名称
  * @export
  * @param {(Array<PageJson> | PageJson)} pagesJson
+ * @param {boolean} [isNodeModules=false] 是否是node_modules/lin-ui/dist下的组件，当为true的时候，需要做不同处理
  * @returns {Set<string>}
  */
-export function getComponentsName(pagesJson: Array<PageJson> | PageJson): Set<string> {
+export function getComponentsName(pagesJson: Array<PageJson> | PageJson, isNodeModules: boolean = false): Set<string> {
     const componentsPath: Set<string> = new Set()
     const names: Set<string> = new Set()
     let path = ''
@@ -53,9 +54,11 @@ export function getComponentsName(pagesJson: Array<PageJson> | PageJson): Set<st
             if(component.indexOf(LIN_UI_DIR) !== -1) {
                 componentsPath.add(item.usingComponents[key])
             }
+            if(isNodeModules) {
+                componentsPath.add(item.usingComponents[key])
+            }
         }
     }
-
     if (Array.isArray(pagesJson)) {
         pagesJson.forEach(item => {
             if (item.usingComponents) {

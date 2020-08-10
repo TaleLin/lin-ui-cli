@@ -19,9 +19,10 @@ export declare function getStr(str: string, start: string, end: string): string 
  * @name 获取数组/对象下的所有组件名称
  * @export
  * @param {(Array<PageJson> | PageJson)} pagesJson
+ * @param {boolean} [isNodeModules=false] 是否是node_modules/lin-ui/dist下的组件，当为true的时候，需要做不同处理
  * @returns {Set<string>}
  */
-export declare function getComponentsName(pagesJson: Array<PageJson> | PageJson): Set<string>;
+export declare function getComponentsName(pagesJson: Array<PageJson> | PageJson, isNodeModules?: boolean): Set<string>;
 /**
  * @name 差集
  * @export

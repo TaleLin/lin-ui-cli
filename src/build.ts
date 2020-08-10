@@ -28,12 +28,12 @@ import linCache from './cache'
  * @param {Set<string>} components
  * @returns {Set<string>}
  */
+const result: Set<string> = new Set();
 function getDependComponents(components: Set<string>): Set<string> {
-    let result: Set<string> = new Set();
     for (let name of components) {
         const dirName = `${NODE_MODULES_LIN_UI_DIR}/dist/${name}/index.json`
         const filejson = parseJsonFile(dirName)
-        const componentsName = getComponentsName(filejson)
+        const componentsName = getComponentsName(filejson, true)
         componentsName.forEach(component => {
             result.add(component)
         })
