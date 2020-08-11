@@ -3,7 +3,7 @@ import { findJson, getComponentsName, difference, union, intersect, formatJsonBy
 import { BASE_DIR, NODE_MODULES_LIN_UI_DIR, MINI_PROGRAM_LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, NODE_MODULES_DIR_NAME, LIN_UI_DIR, CORE_DIRS,USER_CONFIG_DIR  } from './config'
 import { AppJson, PageJson } from './interface'
 import { CheckFileExistsType } from './enum'
-
+import consola from 'consola'
 /**
  * @name 深度递归获取所有依赖的组件
  * @param {Set<string>} components
@@ -103,24 +103,30 @@ function getUseComponents() {
 
 export default function build() {
     const startTime = new Date()
-    checkFileExists(MINI_PROGRAM_DIR_NAME)
-    checkFileExists(MINI_PROGRAM_LIN_UI_DIR)
-    checkFileExists(USER_CONFIG_DIR, formatJsonByFile({}), CheckFileExistsType.FILE)
-    let useComponents = getUseComponents()
-    const linuiDir = new Set([...readDirGetFile(`${NODE_MODULES_LIN_UI_DIR}/dist/`)])
-    // 通过与node_modules差集获取所有未使用组件
-    let differenceDir = difference(useComponents, linuiDir)
-    // 删除未使用的组件
-    for (let dir of differenceDir) {
-        deleteFolderRecursive(`${MINI_PROGRAM_LIN_UI_DIR}/${dir}`)
-    }
-    //通过与miniprogram_npm差集获取所有已使用但不存在组件
-    const miniResult = new Set([...readDirGetFile(`${MINI_PROGRAM_LIN_UI_DIR}/`)])
-    const differenceMiniDir = difference(miniResult, useComponents)
-    // copy组件
-    for (let dir of differenceMiniDir) {
-        copyFolder(`${NODE_MODULES_LIN_UI_DIR}/dist/${dir}`, `${MINI_PROGRAM_LIN_UI_DIR}/${dir}`)
+    try {
+        checkFileExists(MINI_PROGRAM_DIR_NAME)
+        checkFileExists(MINI_PROGRAM_LIN_UI_DIR)
+        checkFileExists(USER_CONFIG_DIR, formatJsonByFile({}), CheckFileExistsType.FILE)
+        let useComponents = getUseComponents()
+        const linuiDir = new Set([...readDirGetFile(`${NODE_MODULES_LIN_UI_DIR}/dist/`)])
+        // 通过与node_modules差集获取所有未使用组件
+        let differenceDir = difference(useComponents, linuiDir)
+        // 删除未使用的组件
+        for (let dir of differenceDir) {
+            deleteFolderRecursive(`${MINI_PROGRAM_LIN_UI_DIR}/${dir}`)
+        }
+        //通过与miniprogram_npm差集获取所有已使用但不存在组件
+        const miniResult = new Set([...readDirGetFile(`${MINI_PROGRAM_LIN_UI_DIR}/`)])
+        const differenceMiniDir = difference(miniResult, useComponents)
+        // copy组件
+        for (let dir of differenceMiniDir) {
+            copyFolder(`${NODE_MODULES_LIN_UI_DIR}/dist/${dir}`, `${MINI_PROGRAM_LIN_UI_DIR}/${dir}`)
+        }
+        consola.success('执行成功')
+    } catch (error) {
+        consola.error('执行失败')
+        consola.error(error)
     }
     const endTime = new Date()
-    console.log('总耗时', endTime.getTime() - startTime.getTime() + 'ms')
+    consola.log('总耗时', endTime.getTime() - startTime.getTime() + 'ms')
 }
