@@ -1,29 +1,6 @@
-import {
-    readDirPath,
-    parseJsonFiles,
-    parseJsonFile,
-    readDirGetFile,
-    deleteFolderRecursive,
-    copyFolder,
-    checkFileExists
-} from './file-handle'
-import {
-    findJson,
-    getComponentsName,
-    difference,
-    union,
-    intersect
-} from './utils';
-
-import {
-    BASE_DIR,
-    NODE_MODULES_LIN_UI_DIR,
-    MINI_PROGRAM_LIN_UI_DIR,
-    MINI_PROGRAM_DIR_NAME,
-    NODE_MODULES_DIR_NAME,
-    LIN_UI_DIR,
-    CORE_DIRS
-} from './config'
+import { readDirPath, parseJsonFiles, parseJsonFile, readDirGetFile, deleteFolderRecursive, copyFolder, checkFileExists } from './file-handle'
+import { findJson, getComponentsName, difference, union, intersect } from './utils';
+import { BASE_DIR, NODE_MODULES_LIN_UI_DIR, MINI_PROGRAM_LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, NODE_MODULES_DIR_NAME, LIN_UI_DIR, CORE_DIRS } from './config'
 import { AppJson, PageJson } from './interface'
 import linCache from './cache'
 
@@ -126,6 +103,7 @@ function getUseComponents() {
 
 
 export default function build() {
+    const startTime = new Date()
     checkFileExists(MINI_PROGRAM_DIR_NAME)
     checkFileExists(MINI_PROGRAM_LIN_UI_DIR)
     let useComponents = getUseComponents()
@@ -143,4 +121,6 @@ export default function build() {
     for (let dir of differenceMiniDir) {
         copyFolder(`${NODE_MODULES_LIN_UI_DIR}/dist/${dir}`, `${MINI_PROGRAM_LIN_UI_DIR}/${dir}`)
     }
+    const endTime = new Date()
+    console.log('总耗时', endTime.getTime() - startTime.getTime() + 'ms')
 }
