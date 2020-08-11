@@ -1,5 +1,12 @@
+import { checkFileExists } from './file-handle'
+import { CheckFileExistsType } from './enum'
+import { formatJsonByFile } from './utils'
 export const BASE_DIR = process.cwd()
-const userConfig = require(BASE_DIR + '/lin-ui.json')
+const UserConfigDir = BASE_DIR + '/lin-ui.json'
+const data = formatJsonByFile({})
+checkFileExists(UserConfigDir, data, CheckFileExistsType.FILE)
+const userConfig = require(UserConfigDir)
+
 export const LIN_UI_DIR = userConfig['lin-ui-dir'] || 'lin-ui'
 export const NODE_MODULES_DIR_NAME = 'node_modules'
 export const MINI_PROGRAM_DIR_NAME = userConfig['miniprogram_npm'] || 'miniprogram_npm'

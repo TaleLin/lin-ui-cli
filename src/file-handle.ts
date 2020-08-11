@@ -1,6 +1,7 @@
-import { readdirSync, statSync, PathLike, existsSync, unlinkSync, mkdirSync, rmdirSync, createReadStream, accessSync, createWriteStream, constants } from 'fs'
+import { readdirSync, statSync, writeFileSync, PathLike, existsSync, unlinkSync, mkdirSync, rmdirSync, createReadStream, accessSync, createWriteStream, constants } from 'fs'
 import { join } from 'path'
-const pathList:Set<string> = new Set()
+import { CheckFileExistsType } from './enum'
+const pathList: Set<string> = new Set()
 /**
  * @name 读取目录下所有文件
  * @export
@@ -92,10 +93,6 @@ export function deleteFolderRecursive(entry: string) {
  */
 export function copyFolder(currentDir: PathLike, targetDir: PathLike) {
 
-    function createDir(dirPath: PathLike) {
-        mkdirSync(dirPath)
-    }
-
     function handleFolder(currentDir: PathLike, targetDir: PathLike) {
         const files = readdirSync(currentDir, {
             withFileTypes: true
@@ -130,10 +127,33 @@ export function copyFolder(currentDir: PathLike, targetDir: PathLike) {
 
     if (existsSync(currentDir)) {
         if (!existsSync(targetDir)) {
-            createDir(targetDir)
+            mkdirSync(targetDir)
         }
         handleFolder(currentDir, targetDir)
     } else {
         console.log('需要copy的文件夹不存在')
+    }
+}
+
+/**
+ * @name 检测文件/文件夹是否存在，不存在则创建
+ * @export
+ * @param {(PathLike | string)} path
+ * @param {*} [data]
+ * @param {CheckFileExistsType} [type=CheckFileExistsType.DIRECTORY]
+ */
+export function checkFileExists(path: PathLike | string, data?: any, type: CheckFileExistsType = CheckFileExistsType.DIRECTORY): void {
+    if (!existsSync(path)) {
+        switch (type) {
+            case CheckFileExistsType.DIRECTORY:
+                mkdirSync(path)
+                break;
+            case CheckFileExistsType.FILE:
+                writeFileSync(path, data)
+                break;
+            default:
+                mkdirSync(path)
+                break;
+        }
     }
 }

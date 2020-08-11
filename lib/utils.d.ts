@@ -19,10 +19,12 @@ export declare function getStr(str: string, start: string, end: string): string 
  * @name 获取数组/对象下的所有组件名称
  * @export
  * @param {(Array<PageJson> | PageJson)} pagesJson
- * @param {boolean} [isNodeModules=false] 是否是node_modules/lin-ui/dist下的组件，当为true的时候，需要做不同处理
+ * @param {boolean} [isNodeModules=false]
+ * @param {string} linUiDir
+ * @param {string} [miniProgramDirName]
  * @returns {Set<string>}
  */
-export declare function getComponentsName(pagesJson: Array<PageJson> | PageJson, isNodeModules?: boolean): Set<string>;
+export declare function getComponentsName(pagesJson: Array<PageJson> | PageJson, isNodeModules: boolean | undefined, linUiDir: string, miniProgramDirName?: string): Set<string>;
 /**
  * @name 差集
  * @export
@@ -31,3 +33,26 @@ export declare function getComponentsName(pagesJson: Array<PageJson> | PageJson,
  * @returns {Set<string>}
  */
 export declare function difference(current: Set<string>, target: Set<string>): Set<string>;
+/**
+ * @name 获取交集
+ * @export
+ * @param {Set<string>} current
+ * @param {Set<string>} target
+ * @returns {Set<string>}
+ */
+export declare function intersect(current: Set<string>, target: Set<string>): Set<string>;
+/**
+ * @name 获取并集
+ * @export
+ * @param {Set<string>} current
+ * @param {Set<string>} target
+ * @returns {Set<string>}
+ */
+export declare function union(current: Set<string>, target: Set<string>): Set<string>;
+/**
+ * @name 格式化json
+ * @export
+ * @param {any} data
+ * @returns {string}
+ */
+export declare function formatJsonByFile(data: any): string;

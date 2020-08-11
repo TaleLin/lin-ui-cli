@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, PathLike, writeFileSync } from 'fs'
 import { BASE_DIR, NODE_MODULES_DIR_NAME } from './config'
+import { formatJsonByFile } from './utils'
 /**
  * @name lin-mini-cli缓存系统
  * @export
@@ -38,7 +39,8 @@ class LinCache {
     private _initCacheFile() {
         if (!existsSync(this._cacheFile)) {
             const defaultContent = {
-                name: 'lin-ui-cache'
+                name: 'lin-ui-cache',
+                version: require('../package.json')['version']
             }
             this._writeCacheFile(defaultContent)
         }
@@ -52,7 +54,7 @@ class LinCache {
      */
     private _writeCacheFile(data: object) {
         if (Object.prototype.toString.call(data) === '[object Object]') {
-            const formatJson = JSON.stringify(data, null, 2)
+            const formatJson = formatJsonByFile(data)
             writeFileSync(this._cacheFile, formatJson);
         } else {
             console.log(data, '缓存必须为对象格式')
@@ -94,6 +96,11 @@ class LinCache {
         let data = this._readCacheFile()
         data[key] = info
         this._writeCacheFile(data)
+    }
+
+    public version() {
+        let data = this._readCacheFile()
+        return data['version']
     }
 }
 export default new LinCache

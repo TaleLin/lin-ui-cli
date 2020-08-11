@@ -1,5 +1,4 @@
 import { PageJson } from './interface'
-import { MINI_PROGRAM_DIR_NAME, LIN_UI_DIR } from './config'
 
 /**
  * @name 从一组路径里查找到所有json文件
@@ -36,10 +35,12 @@ export function getStr(str: string, start: string, end: string): string | null {
  * @name 获取数组/对象下的所有组件名称
  * @export
  * @param {(Array<PageJson> | PageJson)} pagesJson
- * @param {boolean} [isNodeModules=false] 是否是node_modules/lin-ui/dist下的组件，当为true的时候，需要做不同处理
+ * @param {boolean} [isNodeModules=false]
+ * @param {string} linUiDir
+ * @param {string} [miniProgramDirName]
  * @returns {Set<string>}
  */
-export function getComponentsName(pagesJson: Array<PageJson> | PageJson, isNodeModules: boolean = false): Set<string> {
+export function getComponentsName(pagesJson: Array<PageJson> | PageJson, isNodeModules: boolean = false, linUiDir: string, miniProgramDirName?: string): Set<string> {
     const componentsPath: Set<string> = new Set()
     const names: Set<string> = new Set()
     let path = ''
@@ -50,11 +51,11 @@ export function getComponentsName(pagesJson: Array<PageJson> | PageJson, isNodeM
      */
     function addComponents(item: PageJson) {
         for (let key of Object.keys(item.usingComponents)) {
-            const component:string = item.usingComponents[key]
-            if(component.indexOf(LIN_UI_DIR) !== -1) {
+            const component: string = item.usingComponents[key]
+            if (component.indexOf(linUiDir) !== -1) {
                 componentsPath.add(item.usingComponents[key])
             }
-            if(isNodeModules) {
+            if (isNodeModules) {
                 componentsPath.add(item.usingComponents[key])
             }
         }
@@ -63,7 +64,7 @@ export function getComponentsName(pagesJson: Array<PageJson> | PageJson, isNodeM
         pagesJson.forEach(item => {
             if (item.usingComponents) {
                 addComponents(item)
-                path = `/${MINI_PROGRAM_DIR_NAME}/${LIN_UI_DIR}/`
+                path = `/${miniProgramDirName}/${linUiDir}/`
             }
         })
 
@@ -93,4 +94,36 @@ export function difference(current: Set<string>, target: Set<string>): Set<strin
     return new Set(
         [...target].filter(x => !current.has(x))
     )
+}
+
+/**
+ * @name 获取交集
+ * @export
+ * @param {Set<string>} current
+ * @param {Set<string>} target
+ * @returns {Set<string>}
+ */
+export function intersect(current: Set<string>, target: Set<string>): Set<string> {
+    return new Set([...target].filter(x => current.has(x)))
+}
+
+/**
+ * @name 获取并集
+ * @export
+ * @param {Set<string>} current
+ * @param {Set<string>} target
+ * @returns {Set<string>}
+ */
+export function union(current: Set<string>, target: Set<string>): Set<string> {
+    return new Set([...current, ...target])
+}
+
+/**
+ * @name 格式化json
+ * @export
+ * @param {any} data
+ * @returns {string}
+ */
+export function formatJsonByFile(data: any): string {
+    return JSON.stringify(data, null, 2)
 }

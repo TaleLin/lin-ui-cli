@@ -49,6 +49,7 @@ declare class LinCache {
      * @memberof LinCache
      */
     setItem(key: string, info: any): void;
+    version(): any;
 }
 declare const _default: LinCache;
 export default _default;
