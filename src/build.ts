@@ -2,7 +2,6 @@ import { readDirPath, parseJsonFiles, parseJsonFile, readDirGetFile, deleteFolde
 import { findJson, getComponentsName, difference, union, intersect } from './utils';
 import { BASE_DIR, NODE_MODULES_LIN_UI_DIR, MINI_PROGRAM_LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, NODE_MODULES_DIR_NAME, LIN_UI_DIR, CORE_DIRS } from './config'
 import { AppJson, PageJson } from './interface'
-import linCache from './cache'
 
 /**
  * @name 深度递归获取所有依赖的组件
@@ -97,7 +96,6 @@ function getUseComponents() {
     result = union(getDependComponents(componentsName), result)
     // 合并核心文件
     result = union(result, CORE_DIRS)
-    linCache.setItem('useComponents', [...result])
     return result
 }
 
