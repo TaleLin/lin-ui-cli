@@ -98,9 +98,9 @@ export function projectConfigContent(appid: string, isOpenLoading: boolean) {
 }`
 }
 
-export function linuiConfigContent() {
+export function linuiConfigContent(linuiDir: string, miniprogramDir: string) {
     return `{
-    "lin-ui-dir": "lin-ui",
-    "miniprogram_npm": "miniprogram_npm"
+    "lin-ui-dir": "${linuiDir}",
+    "miniprogram_npm": "${miniprogramDir}"
 }`
 }

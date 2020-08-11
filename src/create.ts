@@ -1,6 +1,6 @@
 import { copyFolder, checkFileExists } from './file-handle'
 import { CheckFileExistsType } from './enum'
-import { CNPM_BASE_URL } from './config'
+import { CNPM_BASE_URL, LIN_UI_DIR, MINI_PROGRAM_DIR_NAME } from './config'
 import { packageJsonContent, projectConfigContent, linuiConfigContent } from './template'
 import { PromptInput } from './interface'
 import { join } from 'path'
@@ -50,7 +50,7 @@ export default async function create(name: string) {
     // 获取project.config.json内容
     const projectConfig = projectConfigContent(appid, openLoading)
     // 获取lin.config.json内容
-    const linuiConfig = linuiConfigContent()
+    const linuiConfig = linuiConfigContent(LIN_UI_DIR, MINI_PROGRAM_DIR_NAME)
     // 项目跟路径
     const rootPath = process.cwd() + '/' + name
     // package.json路径
