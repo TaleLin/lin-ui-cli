@@ -1,7 +1,8 @@
 import { readDirPath, parseJsonFiles, parseJsonFile, readDirGetFile, deleteFolderRecursive, copyFolder, checkFileExists } from './file-handle'
-import { findJson, getComponentsName, difference, union, intersect } from './utils';
-import { BASE_DIR, NODE_MODULES_LIN_UI_DIR, MINI_PROGRAM_LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, NODE_MODULES_DIR_NAME, LIN_UI_DIR, CORE_DIRS } from './config'
+import { findJson, getComponentsName, difference, union, intersect, formatJsonByFile } from './utils';
+import { BASE_DIR, NODE_MODULES_LIN_UI_DIR, MINI_PROGRAM_LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, NODE_MODULES_DIR_NAME, LIN_UI_DIR, CORE_DIRS,USER_CONFIG_DIR  } from './config'
 import { AppJson, PageJson } from './interface'
+import { CheckFileExistsType } from './enum'
 
 /**
  * @name 深度递归获取所有依赖的组件
@@ -104,6 +105,7 @@ export default function build() {
     const startTime = new Date()
     checkFileExists(MINI_PROGRAM_DIR_NAME)
     checkFileExists(MINI_PROGRAM_LIN_UI_DIR)
+    checkFileExists(USER_CONFIG_DIR, formatJsonByFile({}), CheckFileExistsType.FILE)
     let useComponents = getUseComponents()
     const linuiDir = new Set([...readDirGetFile(`${NODE_MODULES_LIN_UI_DIR}/dist/`)])
     // 通过与node_modules差集获取所有未使用组件

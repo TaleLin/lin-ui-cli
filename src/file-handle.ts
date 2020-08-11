@@ -1,4 +1,4 @@
-import { readdirSync, statSync, writeFileSync, PathLike, existsSync, unlinkSync, mkdirSync, rmdirSync, createReadStream, accessSync, createWriteStream, constants } from 'fs'
+import { readdirSync, statSync, writeFileSync, PathLike, existsSync, unlinkSync, mkdirSync, rmdirSync, createReadStream, accessSync, createWriteStream, constants, readFileSync } from 'fs'
 import { join } from 'path'
 import { CheckFileExistsType } from './enum'
 const pathList: Set<string> = new Set()
@@ -54,7 +54,12 @@ export function parseJsonFiles(arr: Set<string>) {
  * @returns
  */
 export function parseJsonFile(file: string) {
-    return require(file)
+    try {
+        const data = readFileSync(file, 'utf8');
+        return JSON.parse(data)
+    } catch (error) {
+        return
+    }
 }
 
 /**
