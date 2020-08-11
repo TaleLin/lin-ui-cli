@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import program from 'commander'
 import build from './build'
-
-//version 版本号
-//name 新项目名称
+import create from './create'
 program.version(require('../package.json')['version'], '-v, --version')
 program.command('build')
     .action(build)
+program.command('create <name>')
+    .action(create)
 program.parse(process.argv);

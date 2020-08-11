@@ -20,4 +20,26 @@ interface Subpackages {
     root: string;
     pages: Array<string>;
 }
+/**
+ * @name 生成package.json需要输入的参数
+ * @export
+ * @interface PackageJsonInput
+ */
+export interface PackageJsonInput {
+    name: string;
+    version?: string;
+    linuiversion: string;
+    description?: string;
+}
+/**
+ * @name Prompt需要输入的参数
+ * @export
+ * @interface PromptInput
+ */
+export interface PromptInput {
+    version: string;
+    description: string;
+    openLoading: boolean;
+    appid: string;
+}
 export {};

@@ -6,3 +6,4 @@ export declare const MINI_PROGRAM_DIR_NAME: any;
 export declare const NODE_MODULES_LIN_UI_DIR: string;
 export declare const MINI_PROGRAM_LIN_UI_DIR: string;
 export declare const CORE_DIRS: Set<string>;
+export declare const CNPM_BASE_URL = "https://registry.npm.taobao.org/lin-ui";
