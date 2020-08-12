@@ -1,6 +1,7 @@
 import { readdirSync, statSync, writeFileSync, PathLike, existsSync, unlinkSync, mkdirSync, rmdirSync, createReadStream, accessSync, createWriteStream, constants, readFileSync } from 'fs'
 import { join } from 'path'
 import { CheckFileExistsType } from './enum'
+import consola from 'consola'
 const pathList: Set<string> = new Set()
 /**
  * @name 读取目录下所有文件
@@ -120,11 +121,11 @@ export function copyFolder(currentDir: PathLike, targetDir: PathLike) {
                         accessSync(join(copyTargetFileInfo, '..'), constants.W_OK)
                         copyFolder(copyCurrentFileInfo, copyTargetFileInfo)
                     } catch (error) {
-                        console.log('权限不足', error)
+                        consola.warn('权限不足', error)
                     }
                 }
             } else {
-                console.log('操作失败，目标文件夹已存在或不存在node_modules目录')
+                consola.error('操作失败，target文件夹已存在或current文件夹不存在')
             }
 
         }
@@ -136,7 +137,7 @@ export function copyFolder(currentDir: PathLike, targetDir: PathLike) {
         }
         handleFolder(currentDir, targetDir)
     } else {
-        console.log('需要copy的文件夹不存在')
+        consola.withTag('需要copy的文件夹不存在').warn(currentDir)
     }
 }
 
