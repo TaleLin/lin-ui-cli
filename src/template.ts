@@ -19,7 +19,7 @@ export function packageJsonContent({ name, version, linuiversion, description, c
 `
 }
 
-export function projectConfigContent(appid: string, isOpenLoading: boolean) {
+export function projectConfigContent(appid: string, isOpenLoading: boolean, linuiConfigName: string) {
     const scriptsContent = isOpenLoading ? `"scripts": {
         "beforeCompile": "npm run build",
         "beforePreview": "npm run build",
@@ -30,7 +30,7 @@ export function projectConfigContent(appid: string, isOpenLoading: boolean) {
     "packOptions": {
         "ignore": [{
             "type": "file",
-            "value": "lin.config.json"
+            "value": "${linuiConfigName}"
         }]
     },
     "setting": {
