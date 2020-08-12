@@ -2,7 +2,8 @@
 import program from 'commander'
 import build from './build'
 import create from './create'
-program.version(require('../package.json')['version'], '-v, --version')
+import { CLI_VERSION } from './config'
+program.version(CLI_VERSION, '-v, --version')
 program.command('build')
     .action(build)
 program.command('create <name>')

@@ -30,6 +30,7 @@ export interface PackageJsonInput {
     version?: string;
     linuiversion: string;
     description?: string;
+    cliversion: string;
 }
 /**
  * @name Prompt需要输入的参数

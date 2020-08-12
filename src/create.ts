@@ -1,6 +1,6 @@
 import { copyFolder, checkFileExists } from './file-handle'
 import { CheckFileExistsType } from './enum'
-import { CNPM_BASE_URL, LIN_UI_DIR, MINI_PROGRAM_DIR_NAME } from './config'
+import { CNPM_BASE_URL, LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, CLI_VERSION } from './config'
 import { packageJsonContent, projectConfigContent, linuiConfigContent } from './template'
 import { PromptInput } from './interface'
 import { join } from 'path'
@@ -46,7 +46,7 @@ export default async function create(name: string) {
     // 获取linui最新版本号
     const linuiversion = await getLinUiVersion()
     // 获取package.json内容
-    const packageJson = packageJsonContent({ name, linuiversion, version, description })
+    const packageJson = packageJsonContent({ name, linuiversion, version, description, cliversion: CLI_VERSION })
     // 获取project.config.json内容
     const projectConfig = projectConfigContent(appid, openLoading)
     // 获取lin.config.json内容

@@ -1,4 +1,7 @@
 import { parseJsonFile } from './file-handle'
+
+export const CLI_VERSION = require('../package.json')['version']
+
 export const BASE_DIR = process.cwd()
 export const USER_CONFIG_DIR = BASE_DIR + '/lin.config.json'
 const userConfig = parseJsonFile(USER_CONFIG_DIR) || {}

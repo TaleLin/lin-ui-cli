@@ -1,3 +1,4 @@
+export declare const CLI_VERSION: any;
 export declare const BASE_DIR: string;
 export declare const USER_CONFIG_DIR: string;
 export declare const LIN_UI_DIR: any;
