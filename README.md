@@ -108,10 +108,12 @@ yarn add lin-ui lin-mini-cli
 执行成功后，会在根目录里生成项目依赖文件夹 `node_modules/lin-ui` （小程序IDE的目录结构里不会显示此文件夹）。
 <br/>
 然后用小程序官方IDE打开我们的小程序项目，找到 `工具` 选项，点击下拉选中 `构建npm` ，等待构建完成即可。
+
 <img-wrapper>
   <img src="http://imglf6.nosdn0.126.net/img/YUdIR2E3ME5weEZEa3ErKzdJRGVNckFIWUZrS0ZKeWNOUnpxSXh5MlRKQU9Jakh6WnRXenVRPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0">
 </img-wrapper>
 出现上图所示的结果后，可以看到小程序IDE工具的目录结构里多出了一个文件夹 `miniprogram_npm`（之后所有通过 `npm ` 引入的组件和 `js` 库都会出现在这里），打开后可以看到 `lin-ui` 文件夹，也就是我们所需要的组件。
+
 <img-wrapper>
   <img src="http://imglf5.nosdn0.126.net/img/YUdIR2E3ME5weEVCVEZMbkRGRHZaRWdTWE9UMzd1Y3ZkN2dHUjBHY2xSS1daZjl0QTkvOVVBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0">
 </img-wrapper>
@@ -140,7 +142,7 @@ yarn add lin-ui lin-mini-cli
 }
 ```
 
-到此 `lin-mini-cli` 脚手架已经安装完成，当然您可以选择在项目根目录创建 `linui.config.json` 配置文件，具体参数如下。
+到此 `lin-mini-cli` 脚手架已经安装完成，当然您可以选择在项目创建 `linui.config.json` 配置文件，具体参数如下。
 
 ## linui.config.json (Attributes）
 
