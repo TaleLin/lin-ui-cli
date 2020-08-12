@@ -42,6 +42,7 @@ export interface PackageJsonInput {
  * @interface PromptInput
  */
 export interface PromptInput {
+    name: string,
     version: string, 
     description: string, 
     openLoading: boolean,

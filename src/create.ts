@@ -12,7 +12,7 @@ const prompt = [
     {
         type: 'input',
         name: 'version',
-        message: 'version(1.0.0)',
+        message: 'version',
         default: '1.0.0'
     },
     {
@@ -41,8 +41,16 @@ async function getLinUiVersion() {
     return res.data['dist-tags']['latest']
 }
 
-export default async function create(name: string) {
-    const { version, description, openLoading, appid }: PromptInput = await inquirer.prompt(prompt)
+export default async function create(dirName: string) {
+    const nameOption = {
+        type: 'input',
+        name: 'name',
+        message: `name`,
+        default: dirName
+    }
+    prompt.unshift(nameOption)
+
+    const { name, version, description, openLoading, appid }: PromptInput = await inquirer.prompt(prompt)
     // 获取linui最新版本号
     const linuiversion = await getLinUiVersion()
     // 获取package.json内容
@@ -52,7 +60,7 @@ export default async function create(name: string) {
     // 获取lin.config.json内容
     const linuiConfig = linuiConfigContent(LIN_UI_DIR, MINI_PROGRAM_DIR_NAME)
     // 项目跟路径
-    const rootPath = process.cwd() + '/' + name
+    const rootPath = process.cwd() + '/' + dirName
     // package.json路径
     const packageJsonPath = `${rootPath}/package.json`
     // project.config.json路径
