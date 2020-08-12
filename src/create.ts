@@ -1,6 +1,6 @@
 import { copyFolder, checkFileExists } from './file-handle'
 import { CheckFileExistsType } from './enum'
-import { CNPM_BASE_URL, LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, CLI_VERSION } from './config'
+import { CNPM_BASE_URL, LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, CLI_VERSION, USER_CONFIG_FILE_NAME } from './config'
 import { packageJsonContent, projectConfigContent, linuiConfigContent } from './template'
 import { PromptInput } from './interface'
 import { join } from 'path'
@@ -66,7 +66,7 @@ export default async function create(dirName: string) {
     // project.config.json路径
     const projectConfigPath = `${rootPath}/project.config.json`
     // project.config.json路径
-    const linConfigPath = `${rootPath}/lin.config.json`
+    const linConfigPath = `${rootPath}/${USER_CONFIG_FILE_NAME}`
     // 被复制的文件夹路径
     const currentPath = join(__dirname, '..') + '/template'
     try {
