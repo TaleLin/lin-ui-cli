@@ -1,7 +1,7 @@
 import { readdirSync, statSync, writeFileSync, PathLike, existsSync, unlinkSync, mkdirSync, rmdirSync, createReadStream, accessSync, createWriteStream, constants, readFileSync } from 'fs'
 import { join } from 'path'
 import { CheckFileExistsType } from './enum'
-import consola from 'consola'
+import { Error, error, Warn, warn } from './tip-style'
 const pathList: Set<string> = new Set()
 /**
  * @name 读取目录下所有文件
@@ -121,11 +121,11 @@ export function copyFolder(currentDir: PathLike, targetDir: PathLike) {
                         accessSync(join(copyTargetFileInfo, '..'), constants.W_OK)
                         copyFolder(copyCurrentFileInfo, copyTargetFileInfo)
                     } catch (error) {
-                        consola.warn('权限不足', error)
+                        Warn('权限不足' + error)
                     }
                 }
             } else {
-                consola.error('操作失败，target文件夹已存在或current文件夹不存在')
+                Error(error('操作失败，target文件夹已存在或current文件夹不存在'))
             }
 
         }
@@ -137,7 +137,7 @@ export function copyFolder(currentDir: PathLike, targetDir: PathLike) {
         }
         handleFolder(currentDir, targetDir)
     } else {
-        consola.withTag('需要copy的文件夹不存在').warn(currentDir)
+        Warn(warn('需要copy的文件夹不存在:' + currentDir))
     }
 }
 

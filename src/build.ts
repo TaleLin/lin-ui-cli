@@ -1,9 +1,10 @@
 import { readDirPath, parseJsonFiles, parseJsonFile, readDirGetFile, deleteFolderRecursive, copyFolder, checkFileExists } from './file-handle'
 import { findJson, getComponentsName, difference, union, intersect, formatJsonByFile } from './utils';
-import { BASE_DIR, NODE_MODULES_LIN_UI_DIR, MINI_PROGRAM_LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, NODE_MODULES_DIR_NAME, LIN_UI_DIR, CORE_DIRS,USER_CONFIG_DIR  } from './config'
+import { BASE_DIR, NODE_MODULES_LIN_UI_DIR, MINI_PROGRAM_LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, NODE_MODULES_DIR_NAME, LIN_UI_DIR, CORE_DIRS, USER_CONFIG_DIR } from './config'
 import { AppJson, PageJson } from './interface'
 import { CheckFileExistsType } from './enum'
-import consola from 'consola'
+import { Success, Start, Error, success, error, primary } from './tip-style'
+
 /**
  * @name 深度递归获取所有依赖的组件
  * @param {Set<string>} components
@@ -120,13 +121,15 @@ export default function build() {
         const differenceMiniDir = difference(miniResult, useComponents)
         // copy组件
         for (let dir of differenceMiniDir) {
+            Start(`开始处理 ${primary(dir)} 组件`)
             copyFolder(`${NODE_MODULES_LIN_UI_DIR}/dist/${dir}`, `${MINI_PROGRAM_LIN_UI_DIR}/${dir}`)
+            Success(`${primary(dir)} 组件处理成功`)
         }
-        consola.success('执行成功')
-    } catch (error) {
-        consola.error('执行失败')
-        consola.error(error)
+        Success(success('success'))
+    } catch (err) {
+        Error(error('error'))
+        Error(error(err))
     }
     const endTime = new Date()
-    consola.log('总耗时', endTime.getTime() - startTime.getTime() + 'ms')
+    Success('总耗时' + primary(endTime.getTime() - startTime.getTime() + 'ms'))
 }

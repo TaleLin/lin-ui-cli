@@ -6,7 +6,7 @@ import { PromptInput } from './interface'
 import { join } from 'path'
 import inquirer from 'inquirer'
 import axios from 'axios'
-import consola from 'consola'
+import { Success, Error, error, primary, success } from './tip-style'
 
 const prompt = [
     {
@@ -80,9 +80,10 @@ export default async function create(dirName: string) {
         checkFileExists(linConfigPath, linuiConfig, CheckFileExistsType.FILE)
         // 复制项目文件
         copyFolder(currentPath, rootPath)
-        consola.success('项目创建成功')
-    } catch (error) {
-        consola.error('项目创建失败')
-        consola.error(error)
+        Success(`${success(`Successfully created project ${primary(name)}, directory name is ${primary(dirName)}`)}`)
+        Success(`${success(`Next: Please run ${primary(`cd ${dirName} && npm install or yarn`)}`)}`)
+    } catch (err) {
+        Error(error('create error'))
+        Error(error(err))
     }
 }
