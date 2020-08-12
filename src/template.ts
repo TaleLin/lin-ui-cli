@@ -11,6 +11,7 @@ export function packageJsonContent({ name, version, linuiversion, description, c
     },
     "devDependencies": {},
     "scripts": {
+        "build": "lin-mini-cli build"
     },
     "author": "",
     "license": "ISC"
