@@ -46,6 +46,5 @@ export interface PromptInput {
     name: string,
     version: string, 
     description: string, 
-    openLoading: boolean,
-    appid: string
+    openLoading: boolean
 }

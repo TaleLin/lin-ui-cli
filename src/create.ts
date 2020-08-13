@@ -21,11 +21,6 @@ const prompt = [
         message: 'description'
     },
     {
-        type: 'input',
-        name: 'appid',
-        message: 'appid'
-    },
-    {
         type: 'confirm',
         name: 'openLoading',
         message: '是否开启按需加载?'
@@ -50,13 +45,13 @@ export default async function create(dirName: string) {
     }
     prompt.unshift(nameOption)
 
-    const { name, version, description, openLoading, appid }: PromptInput = await inquirer.prompt(prompt)
+    const { name, version, description, openLoading }: PromptInput = await inquirer.prompt(prompt)
     // 获取linui最新版本号
     const linuiversion = await getLinUiVersion()
     // 获取package.json内容
     const packageJson = packageJsonContent({ name, linuiversion, version, description, cliversion: CLI_VERSION, cliname: CLI_NAME })
     // 获取project.config.json内容
-    const projectConfig = projectConfigContent(appid, openLoading, USER_CONFIG_FILE_NAME)
+    const projectConfig = projectConfigContent(openLoading, USER_CONFIG_FILE_NAME)
     // 获取lin.config.json内容
     const linuiConfig = linuiConfigContent(LIN_UI_DIR, MINI_PROGRAM_DIR_NAME)
     // 项目跟路径
