@@ -1,4 +1,4 @@
 import { PackageJsonInput } from './interface';
-export declare function packageJsonContent({ name, version, linuiversion, description, cliversion }: PackageJsonInput): string;
-export declare function projectConfigContent(appid: string, isOpenLoading: boolean): string;
+export declare function packageJsonContent({ name, version, linuiversion, description, cliversion, cliname }: PackageJsonInput): string;
+export declare function projectConfigContent(isOpenLoading: boolean, linuiConfigName: string): string;
 export declare function linuiConfigContent(linuiDir: string, miniprogramDir: string): string;

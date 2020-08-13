@@ -1,6 +1,8 @@
 export declare const CLI_VERSION: any;
+export declare const CLI_NAME: any;
 export declare const BASE_DIR: string;
-export declare const USER_CONFIG_DIR: string;
+export declare const USER_CONFIG_FILE_NAME = "lin-ui.config.json";
+export declare const USER_CONFIG_FILE: string;
 export declare const LIN_UI_DIR: any;
 export declare const NODE_MODULES_DIR_NAME = "node_modules";
 export declare const MINI_PROGRAM_DIR_NAME: any;

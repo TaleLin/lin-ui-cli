@@ -31,6 +31,7 @@ export interface PackageJsonInput {
     linuiversion: string;
     description?: string;
     cliversion: string;
+    cliname: string;
 }
 /**
  * @name Prompt需要输入的参数
@@ -42,6 +43,5 @@ export interface PromptInput {
     version: string;
     description: string;
     openLoading: boolean;
-    appid: string;
 }
 export {};
