@@ -5,7 +5,7 @@ export const CLI_NAME = require('../package.json')['name']
 
 export const BASE_DIR = process.cwd()
 
-export const USER_CONFIG_FILE_NAME = 'linui.config.json'
+export const USER_CONFIG_FILE_NAME = 'lin-ui.config.json'
 export const USER_CONFIG_FILE = BASE_DIR + '/' + USER_CONFIG_FILE_NAME
 const userConfig = parseJsonFile(USER_CONFIG_FILE) || {}
 
