@@ -1,6 +1,7 @@
 import { parseJsonFile } from './file-handle'
 
 export const CLI_VERSION = require('../package.json')['version']
+export const CLI_NAME = require('../package.json')['name']
 
 export const BASE_DIR = process.cwd()
 

@@ -1,5 +1,5 @@
 {
-  "name": "lin-mini-cli",
+  "name": "lin-ui-cli",
   "version": "0.1.0",
   "description": "微信小程序按需打包脚手架",
   "main": "lib/index.js",
@@ -8,12 +8,12 @@
     "dev": "tsc --watch"
   },
   "bin": {
-    "lin-mini-cli": "lib/index.js"
+    "lin-ui-cli": "lib/index.js"
   },
   "author": "Lin Team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TaleLin/lin-mini-cli/issues"
+    "url": "https://github.com/TaleLin/lin-ui-cli/issues"
   },
   "homepage": "http://doc.mini.talelin.com",
   "devDependencies": {

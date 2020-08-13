@@ -1,5 +1,5 @@
 import { PackageJsonInput } from './interface'
-export function packageJsonContent({ name, version, linuiversion, description, cliversion }: PackageJsonInput) {
+export function packageJsonContent({ name, version, linuiversion, description, cliversion, cliname }: PackageJsonInput) {
     return `{
     "name": "${name}",
     "version": "${version}",
@@ -7,11 +7,11 @@ export function packageJsonContent({ name, version, linuiversion, description, c
     "main": "app.js",
     "dependencies": {
         "lin-ui": "^${linuiversion}",
-        "lin-mini-cli": "^${cliversion}"
+        "${cliname}: "^${cliversion}"
     },
     "devDependencies": {},
     "scripts": {
-        "build": "lin-mini-cli build"
+        "build": "${cliname} build"
     },
     "author": "",
     "license": "ISC"

@@ -33,7 +33,8 @@ export interface PackageJsonInput {
     version?: string,
     linuiversion: string,
     description?: string,
-    cliversion: string
+    cliversion: string,
+    cliname: string
 }
 
 /**
