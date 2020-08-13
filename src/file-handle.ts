@@ -1,6 +1,6 @@
 import { readdirSync, statSync, writeFileSync, PathLike, existsSync, unlinkSync, mkdirSync, rmdirSync, createReadStream, accessSync, createWriteStream, constants, readFileSync } from 'fs'
 import { join } from 'path'
-import { CheckFileExistsType } from './enum'
+import { checkFileExistsAndCreateType } from './enum'
 import { Error, error, Warn, warn } from './tip-style'
 const pathList: Set<string> = new Set()
 /**
@@ -142,19 +142,29 @@ export function copyFolder(currentDir: PathLike, targetDir: PathLike) {
 }
 
 /**
+ * @name 检测文件/文件夹是否存在
+ * @export
+ * @param {(PathLike | string)} path
+ * @returns
+ */
+export function checkFileExists(path: PathLike | string) {
+    return existsSync(path)
+}
+
+/**
  * @name 检测文件/文件夹是否存在，不存在则创建
  * @export
  * @param {(PathLike | string)} path
  * @param {*} [data]
- * @param {CheckFileExistsType} [type=CheckFileExistsType.DIRECTORY]
+ * @param {checkFileExistsAndCreateType} [type=checkFileExistsAndCreateType.DIRECTORY]
  */
-export function checkFileExists(path: PathLike | string, data?: any, type: CheckFileExistsType = CheckFileExistsType.DIRECTORY): void {
-    if (!existsSync(path)) {
+export function checkFileExistsAndCreate(path: PathLike | string, data?: any, type: checkFileExistsAndCreateType = checkFileExistsAndCreateType.DIRECTORY): void {
+    if (!checkFileExists(path)) {
         switch (type) {
-            case CheckFileExistsType.DIRECTORY:
+            case checkFileExistsAndCreateType.DIRECTORY:
                 mkdirSync(path)
                 break;
-            case CheckFileExistsType.FILE:
+            case checkFileExistsAndCreateType.FILE:
                 writeFileSync(path, data)
                 break;
             default:

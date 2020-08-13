@@ -1,9 +1,9 @@
-import { readDirPath, parseJsonFiles, parseJsonFile, readDirGetFile, deleteFolderRecursive, copyFolder, checkFileExists } from './file-handle'
+import { readDirPath, parseJsonFiles, parseJsonFile, readDirGetFile, deleteFolderRecursive, copyFolder, checkFileExistsAndCreate, checkFileExists } from './file-handle'
 import { findJson, getComponentsName, difference, union, intersect, formatJsonByFile } from './utils';
 import { BASE_DIR, NODE_MODULES_LIN_UI_DIR, MINI_PROGRAM_LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, NODE_MODULES_DIR_NAME, LIN_UI_DIR, CORE_DIRS, USER_CONFIG_FILE } from './config'
 import { AppJson, PageJson } from './interface'
-import { CheckFileExistsType } from './enum'
-import { Success, Start, Error, success, error, primary } from './tip-style'
+import { checkFileExistsAndCreateType } from './enum'
+import { Success, Start, Error, success, error, primary, warn } from './tip-style'
 
 /**
  * @name 深度递归获取所有依赖的组件
@@ -103,11 +103,19 @@ function getUseComponents() {
 
 
 export default function build() {
+    if (!checkFileExists('package.json')) {
+        Error(`${error(`Can not find ${warn('package.json')} file!`)} ${error(`Please run ${warn('npm init')} command!`)}`)
+        return
+    }
+    if (!checkFileExists(NODE_MODULES_DIR_NAME)) {
+        Error(`${error(`Can not find ${warn(NODE_MODULES_DIR_NAME)} directory!`)} ${error(`Please run ${warn('npm install or yarn')}!`)} command`)
+        return
+    }
     const startTime = new Date()
     try {
-        checkFileExists(MINI_PROGRAM_DIR_NAME)
-        checkFileExists(MINI_PROGRAM_LIN_UI_DIR)
-        checkFileExists(USER_CONFIG_FILE, formatJsonByFile({}), CheckFileExistsType.FILE)
+        checkFileExistsAndCreate(MINI_PROGRAM_DIR_NAME)
+        checkFileExistsAndCreate(MINI_PROGRAM_LIN_UI_DIR)
+        checkFileExistsAndCreate(USER_CONFIG_FILE, formatJsonByFile({}), checkFileExistsAndCreateType.FILE)
         let useComponents = getUseComponents()
         const linuiDir = new Set([...readDirGetFile(`${NODE_MODULES_LIN_UI_DIR}/dist/`)])
         // 通过与node_modules差集获取所有未使用组件

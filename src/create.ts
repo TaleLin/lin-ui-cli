@@ -1,5 +1,5 @@
-import { copyFolder, checkFileExists } from './file-handle'
-import { CheckFileExistsType } from './enum'
+import { copyFolder, checkFileExistsAndCreate } from './file-handle'
+import { checkFileExistsAndCreateType } from './enum'
 import { CNPM_BASE_URL, LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, CLI_VERSION, USER_CONFIG_FILE_NAME, CLI_NAME } from './config'
 import { packageJsonContent, projectConfigContent, linuiConfigContent } from './template'
 import { PromptInput } from './interface'
@@ -66,13 +66,13 @@ export default async function create(dirName: string) {
     const currentPath = join(__dirname, '..') + '/template'
     try {
         // 创建根目录
-        checkFileExists(rootPath)
+        checkFileExistsAndCreate(rootPath)
         // 创建package.json
-        checkFileExists(packageJsonPath, packageJson, CheckFileExistsType.FILE)
+        checkFileExistsAndCreate(packageJsonPath, packageJson, checkFileExistsAndCreateType.FILE)
         // 创建project.config.json
-        checkFileExists(projectConfigPath, projectConfig, CheckFileExistsType.FILE)
+        checkFileExistsAndCreate(projectConfigPath, projectConfig, checkFileExistsAndCreateType.FILE)
         // 创建lin.config.json
-        checkFileExists(linConfigPath, linuiConfig, CheckFileExistsType.FILE)
+        checkFileExistsAndCreate(linConfigPath, linuiConfig, checkFileExistsAndCreateType.FILE)
         // 复制项目文件
         copyFolder(currentPath, rootPath)
         Success(`${success(`Successfully created project ${primary(name)}, directory name is ${primary(dirName)}`)}`)

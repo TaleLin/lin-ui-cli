@@ -3,7 +3,7 @@
  * @export
  * @enum {number}
  */
-export enum CheckFileExistsType {
+export enum checkFileExistsAndCreateType {
     DIRECTORY,
     FILE
 }

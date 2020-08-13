@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { PathLike } from 'fs';
-import { CheckFileExistsType } from './enum';
+import { checkFileExistsAndCreateType } from './enum';
 /**
  * @name 读取目录下所有文件
  * @export
@@ -42,10 +42,17 @@ export declare function deleteFolderRecursive(entry: string): void;
  */
 export declare function copyFolder(currentDir: PathLike, targetDir: PathLike): void;
 /**
+ * @name 检测文件/文件夹是否存在
+ * @export
+ * @param {(PathLike | string)} path
+ * @returns
+ */
+export declare function checkFileExists(path: PathLike | string): boolean;
+/**
  * @name 检测文件/文件夹是否存在，不存在则创建
  * @export
  * @param {(PathLike | string)} path
  * @param {*} [data]
- * @param {CheckFileExistsType} [type=CheckFileExistsType.DIRECTORY]
+ * @param {checkFileExistsAndCreateType} [type=checkFileExistsAndCreateType.DIRECTORY]
  */
-export declare function checkFileExists(path: PathLike | string, data?: any, type?: CheckFileExistsType): void;
+export declare function checkFileExistsAndCreate(path: PathLike | string, data?: any, type?: checkFileExistsAndCreateType): void;
