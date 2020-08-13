@@ -102,7 +102,7 @@ export function projectConfigContent(isOpenLoading: boolean, linuiConfigName: st
 
 export function linuiConfigContent(linuiDir: string, miniprogramDir: string) {
     return `{
-    "lin-ui-dir": "${linuiDir}",
-    "miniprogram_npm": "${miniprogramDir}"
+    "linUiDir": "${linuiDir}",
+    "miniprogramNpmDir": "${miniprogramDir}"
 }`
 }
