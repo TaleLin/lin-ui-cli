@@ -86,11 +86,11 @@ export function getComponentsName(pagesJson: Array<PageJson> | PageJson, isNodeM
 /**
  * @name 差集
  * @export
- * @param {Set<string>} current
- * @param {Set<string>} target
- * @returns {Set<string>}
+ * @param {Set<any>} current
+ * @param {Set<any>} target
+ * @returns {Set<any>}
  */
-export function difference(current: Set<string>, target: Set<string>): Set<string> {
+export function difference(current: Set<any>, target: Set<any>): Set<any> {
     return new Set(
         [...target].filter(x => !current.has(x))
     )
@@ -99,22 +99,22 @@ export function difference(current: Set<string>, target: Set<string>): Set<strin
 /**
  * @name 获取交集
  * @export
- * @param {Set<string>} current
- * @param {Set<string>} target
- * @returns {Set<string>}
+ * @param {Set<any>} current
+ * @param {Set<any>} target
+ * @returns {Set<any>}
  */
-export function intersect(current: Set<string>, target: Set<string>): Set<string> {
+export function intersect(current: Set<any>, target: Set<any>): Set<any> {
     return new Set([...target].filter(x => current.has(x)))
 }
 
 /**
  * @name 获取并集
  * @export
- * @param {Set<string>} current
- * @param {Set<string>} target
- * @returns {Set<string>}
+ * @param {Set<any>} current
+ * @param {Set<any>} target
+ * @returns {Set<any>}
  */
-export function union(current: Set<string>, target: Set<string>): Set<string> {
+export function union(current: Set<any>, target: Set<any>): Set<any> {
     return new Set([...current, ...target])
 }
 
@@ -126,4 +126,21 @@ export function union(current: Set<string>, target: Set<string>): Set<string> {
  */
 export function formatJsonByFile(data: any): string {
     return JSON.stringify(data, null, 2)
+}
+
+/**
+ * @name 数组对象去重
+ * @export
+ * @param {Array<any>} arr 需要去重的数组或set
+ * @param {*} [type] 需要根据哪个字段去重
+ * @returns
+ */
+export function deWeight(arr: Array<any> | Set<any>, type: any) {
+    let map = new Map();
+    for (let item of arr) {
+        if (!map.has(item[type])) {
+            map.set(item[type], item);
+        }
+    }
+    return [...map.values()];
 }

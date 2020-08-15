@@ -28,27 +28,27 @@ export declare function getComponentsName(pagesJson: Array<PageJson> | PageJson,
 /**
  * @name 差集
  * @export
- * @param {Set<string>} current
- * @param {Set<string>} target
- * @returns {Set<string>}
+ * @param {Set<any>} current
+ * @param {Set<any>} target
+ * @returns {Set<any>}
  */
-export declare function difference(current: Set<string>, target: Set<string>): Set<string>;
+export declare function difference(current: Set<any>, target: Set<any>): Set<any>;
 /**
  * @name 获取交集
  * @export
- * @param {Set<string>} current
- * @param {Set<string>} target
- * @returns {Set<string>}
+ * @param {Set<any>} current
+ * @param {Set<any>} target
+ * @returns {Set<any>}
  */
-export declare function intersect(current: Set<string>, target: Set<string>): Set<string>;
+export declare function intersect(current: Set<any>, target: Set<any>): Set<any>;
 /**
  * @name 获取并集
  * @export
- * @param {Set<string>} current
- * @param {Set<string>} target
- * @returns {Set<string>}
+ * @param {Set<any>} current
+ * @param {Set<any>} target
+ * @returns {Set<any>}
  */
-export declare function union(current: Set<string>, target: Set<string>): Set<string>;
+export declare function union(current: Set<any>, target: Set<any>): Set<any>;
 /**
  * @name 格式化json
  * @export
@@ -56,3 +56,11 @@ export declare function union(current: Set<string>, target: Set<string>): Set<st
  * @returns {string}
  */
 export declare function formatJsonByFile(data: any): string;
+/**
+ * @name 数组对象去重
+ * @export
+ * @param {Array<any>} arr 需要去重的数组或set
+ * @param {*} [type] 需要根据哪个字段去重
+ * @returns
+ */
+export declare function deWeight(arr: Array<any> | Set<any>, type: any): any[];

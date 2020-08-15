@@ -1,7 +1,7 @@
 import { readdirSync, statSync, writeFileSync, PathLike, existsSync, unlinkSync, mkdirSync, rmdirSync, createReadStream, accessSync, createWriteStream, constants, readFileSync } from 'fs'
 import { join } from 'path'
 import { checkFileExistsAndCreateType } from './enum'
-import { Error, error, Warn, warn } from './tip-style'
+import { Error, error, Warn, warn, Success, success } from './tip-style'
 const pathList: Set<string> = new Set()
 /**
  * @name 读取目录下所有文件
@@ -91,6 +91,16 @@ export function deleteFolderRecursive(entry: string) {
     }
 };
 
+export function writeFile(path: string | PathLike, data: any) {
+    try {
+        writeFileSync(path, data)
+        Success(success('文件写入成功'))
+    } catch (err) {
+        Error(error(err))
+        Error(error('文件写入失败'))
+    }
+}
+
 /**
  * @name 拷贝文件夹
  * @export
@@ -165,7 +175,7 @@ export function checkFileExistsAndCreate(path: PathLike | string, data?: any, ty
                 mkdirSync(path)
                 break;
             case checkFileExistsAndCreateType.FILE:
-                writeFileSync(path, data)
+                writeFile(path, data)
                 break;
             default:
                 mkdirSync(path)

@@ -1,7 +1,7 @@
-import { readDirPath, parseJsonFiles, parseJsonFile, readDirGetFile, deleteFolderRecursive, copyFolder, checkFileExistsAndCreate, checkFileExists } from './file-handle'
-import { findJson, getComponentsName, difference, union, intersect, formatJsonByFile } from './utils';
+import { readDirPath, parseJsonFiles, parseJsonFile, readDirGetFile, deleteFolderRecursive, copyFolder, checkFileExistsAndCreate, checkFileExists, writeFile } from './file-handle'
+import { findJson, getComponentsName, difference, union, intersect, formatJsonByFile, deWeight } from './utils';
 import { BASE_DIR, NODE_MODULES_LIN_UI_DIR, MINI_PROGRAM_LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, NODE_MODULES_DIR_NAME, LIN_UI_DIR, CORE_DIRS, USER_CONFIG_FILE } from './config'
-import { AppJson, PageJson } from './interface'
+import { AppJson, PageJson, ProjectConfigInterface, PackOptionsIgnore } from './interface'
 import { checkFileExistsAndCreateType } from './enum'
 import { Success, Start, Error, success, error, primary, warn } from './tip-style'
 
@@ -103,36 +103,31 @@ function getUseComponents() {
 
 
 export default function build() {
-    if (!checkFileExists('package.json')) {
-        Error(`${error(`Can not find ${warn('package.json')} file!`)} ${error(`Please run ${warn('npm init')} command!`)}`)
-        return
-    }
-    if (!checkFileExists(NODE_MODULES_DIR_NAME)) {
-        Error(`${error(`Can not find ${warn(NODE_MODULES_DIR_NAME)} directory!`)} ${error(`Please run ${warn('npm install or yarn')}!`)} command`)
-        return
-    }
     const startTime = new Date()
     try {
         checkFileExistsAndCreate(MINI_PROGRAM_DIR_NAME)
         checkFileExistsAndCreate(MINI_PROGRAM_LIN_UI_DIR)
         checkFileExistsAndCreate(USER_CONFIG_FILE, formatJsonByFile({}), checkFileExistsAndCreateType.FILE)
         let useComponents = getUseComponents()
-        const linuiDir = new Set([...readDirGetFile(`${NODE_MODULES_LIN_UI_DIR}/dist/`)])
-        // 通过与node_modules差集获取所有未使用组件
-        let differenceDir = difference(useComponents, linuiDir)
-        // 删除未使用的组件
-        for (let dir of differenceDir) {
-            deleteFolderRecursive(`${MINI_PROGRAM_LIN_UI_DIR}/${dir}`)
+        const linuiDir = new Set([...readDirGetFile(`${MINI_PROGRAM_LIN_UI_DIR}/`)])
+        // 通过与组件存放目录差集获取所有未使用组件
+        let differenceComponents = difference(useComponents, linuiDir)
+        const newIgnore: Set<PackOptionsIgnore> = new Set()
+        for (let component of differenceComponents) {
+            Start(primary(`${success(`正在处理未使用组件`)}           ${component}`))
+            const minidir = `${MINI_PROGRAM_LIN_UI_DIR}/${component}`.split(BASE_DIR + '/')[1]
+            newIgnore.add({
+                value: minidir,
+                type: "folder"
+            })
+            Success(primary(`${success('组件已封装')}                       ${component}`))
         }
-        //通过与miniprogram_npm差集获取所有已使用但不存在组件
-        const miniResult = new Set([...readDirGetFile(`${MINI_PROGRAM_LIN_UI_DIR}/`)])
-        const differenceMiniDir = difference(miniResult, useComponents)
-        // copy组件
-        for (let dir of differenceMiniDir) {
-            Start(`开始处理 ${primary(dir)} 组件`)
-            copyFolder(`${NODE_MODULES_LIN_UI_DIR}/dist/${dir}`, `${MINI_PROGRAM_LIN_UI_DIR}/${dir}`)
-            Success(`${primary(dir)} 组件处理成功`)
-        }
+        const projectConfigFile = BASE_DIR + '/project.config.json'
+        let projectConfig: ProjectConfigInterface = require(projectConfigFile)
+        const oldIgnore: Set<PackOptionsIgnore> = new Set([...projectConfig.packOptions.ignore])
+        const resultIgnore = deWeight(union(oldIgnore, newIgnore), "value")
+        projectConfig.packOptions.ignore = resultIgnore
+        writeFile(projectConfigFile, formatJsonByFile(projectConfig))
         Success(success('success'))
     } catch (err) {
         Error(error('error'))

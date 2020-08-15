@@ -44,4 +44,29 @@ export interface PromptInput {
     description: string;
     openLoading: boolean;
 }
+/**
+ * @name project.config.json
+ * @export
+ * @interface ProjectConfigInterface
+ */
+export interface ProjectConfigInterface {
+    packOptions: PackOptions;
+}
+/**
+ * @name project.config.json PackOptions
+ * @export
+ * @interface PackOptions
+ */
+export interface PackOptions {
+    ignore: Array<PackOptionsIgnore>;
+}
+/**
+ * @name project.config.json PackOptions PackOptionsIgnore
+ * @export
+ * @interface PackOptionsIgnore
+ */
+export interface PackOptionsIgnore {
+    type: string;
+    value: string;
+}
 export {};

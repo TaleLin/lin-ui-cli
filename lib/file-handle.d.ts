@@ -34,6 +34,7 @@ export declare function parseJsonFile(file: string): any;
  * @param {string} entry
  */
 export declare function deleteFolderRecursive(entry: string): void;
+export declare function writeFile(path: string | PathLike, data: any): void;
 /**
  * @name 拷贝文件夹
  * @export
