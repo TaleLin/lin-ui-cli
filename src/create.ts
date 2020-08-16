@@ -1,6 +1,6 @@
 import { copyFolder, checkFileExistsAndCreate } from './file-handle'
 import { checkFileExistsAndCreateType } from './enum'
-import { CNPM_BASE_URL, LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, CLI_VERSION, USER_CONFIG_FILE_NAME, CLI_NAME } from './config'
+import { CNPM_BASE_URL, LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, CLI_VERSION, USER_CONFIG_FILE_NAME, CLI_NAME, MINI_VERSION_URL } from './config'
 import { packageJsonContent, projectConfigContent, linuiConfigContent } from './template'
 import { PromptInput } from './interface'
 import { join } from 'path'
@@ -36,6 +36,19 @@ async function getLinUiVersion() {
     return res.data['dist-tags']['latest']
 }
 
+/**
+ * @name 获取微信小程序稳定基础版本库
+ * @returns
+ */
+async function getMiniVersion() {
+    const res = await axios.get(MINI_VERSION_URL)
+    const versions: Array<any> = JSON.parse(res.data['json_data'])['total']
+    const versionsSort = versions.sort((a: any, b: any) => {
+        return b['percentage'] - a['percentage']
+    })
+    return versionsSort[0]['sdkVer']
+}
+
 export default async function create(dirName: string) {
     const nameOption = {
         type: 'input',
@@ -48,10 +61,12 @@ export default async function create(dirName: string) {
     const { name, version, description, openLoading }: PromptInput = await inquirer.prompt(prompt)
     // 获取linui最新版本号
     const linuiversion = await getLinUiVersion()
+    // 获取微信小程序稳定基础版本库
+    const miniVersion = await getMiniVersion()
     // 获取package.json内容
     const packageJson = packageJsonContent({ name, linuiversion, version, description, cliversion: CLI_VERSION, cliname: CLI_NAME })
     // 获取project.config.json内容
-    const projectConfig = projectConfigContent(openLoading, USER_CONFIG_FILE_NAME, name)
+    const projectConfig = projectConfigContent(openLoading, USER_CONFIG_FILE_NAME, name, miniVersion)
     // 获取lin.config.json内容
     const linuiConfig = linuiConfigContent(LIN_UI_DIR, MINI_PROGRAM_DIR_NAME)
     // 项目跟路径

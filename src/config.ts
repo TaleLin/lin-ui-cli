@@ -23,3 +23,4 @@ export const CORE_DIRS = new Set([
 ])
 
 export const CNPM_BASE_URL = 'https://registry.npm.taobao.org/lin-ui'
+export const MINI_VERSION_URL = 'https://mp.weixin.qq.com/debug/getpublibpercentage'
