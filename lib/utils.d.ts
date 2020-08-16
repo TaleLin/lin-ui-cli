@@ -63,4 +63,4 @@ export declare function formatJsonByFile(data: any): string;
  * @param {*} [type] 需要根据哪个字段去重
  * @returns
  */
-export declare function deWeight(arr: Array<any> | Set<any>, type: any): any[];
+export declare function deWeight(arr: Array<any> | Set<any>, type: any): Set<any>;

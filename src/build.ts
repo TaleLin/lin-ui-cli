@@ -13,7 +13,7 @@ import { Success, Start, Error, success, error, primary, warn } from './tip-styl
 const result: Set<string> = new Set();
 function getDependComponents(components: Set<string>): Set<string> {
     for (let name of components) {
-        const dirName = `${NODE_MODULES_LIN_UI_DIR}/dist/${name}/index.json`
+        const dirName = `${MINI_PROGRAM_LIN_UI_DIR}/${name}/index.json`
         const filejson = parseJsonFile(dirName)
         const componentsName = getComponentsName(filejson, true, LIN_UI_DIR, MINI_PROGRAM_DIR_NAME)
         componentsName.forEach(component => {
@@ -109,9 +109,9 @@ export default function build() {
         checkFileExistsAndCreate(MINI_PROGRAM_LIN_UI_DIR)
         checkFileExistsAndCreate(USER_CONFIG_FILE, formatJsonByFile({}), checkFileExistsAndCreateType.FILE)
         let useComponents = getUseComponents()
-        const linuiDir = new Set([...readDirGetFile(`${MINI_PROGRAM_LIN_UI_DIR}/`)])
+        const linuiComponents = new Set([...readDirGetFile(`${MINI_PROGRAM_LIN_UI_DIR}/`)])
         // 通过与组件存放目录差集获取所有未使用组件
-        let differenceComponents = difference(useComponents, linuiDir)
+        let differenceComponents = difference(useComponents, linuiComponents)
         const newIgnore: Set<PackOptionsIgnore> = new Set()
         for (let component of differenceComponents) {
             Start(primary(`${success(`正在处理未使用组件`)}           ${component}`))
@@ -125,8 +125,10 @@ export default function build() {
         const projectConfigFile = BASE_DIR + '/project.config.json'
         let projectConfig: ProjectConfigInterface = require(projectConfigFile)
         const oldIgnore: Set<PackOptionsIgnore> = new Set([...projectConfig.packOptions.ignore])
-        const resultIgnore = deWeight(union(oldIgnore, newIgnore), "value")
-        projectConfig.packOptions.ignore = resultIgnore
+        let resultIgnore = deWeight(union(oldIgnore, newIgnore), "value")
+        // 忽略.gitignore打包
+        resultIgnore.add('.gitignore')
+        projectConfig.packOptions.ignore = [...resultIgnore]
         writeFile(projectConfigFile, formatJsonByFile(projectConfig))
         Success(success('success'))
     } catch (err) {

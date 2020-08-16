@@ -142,5 +142,5 @@ export function deWeight(arr: Array<any> | Set<any>, type: any) {
             map.set(item[type], item);
         }
     }
-    return [...map.values()];
+    return new Set([...map.values()]);
 }
