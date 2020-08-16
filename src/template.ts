@@ -21,8 +21,6 @@ export function packageJsonContent({ name, version, linuiversion, description, c
 
 export function projectConfigContent(isOpenLoading: boolean, linuiConfigName: string) {
     const scriptsContent = isOpenLoading ? `"scripts": {
-        "beforeCompile": "npm run build",
-        "beforePreview": "npm run build",
         "beforeUpload": "npm run build"
     },` : ""
     return `{
