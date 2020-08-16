@@ -34,7 +34,7 @@ export function projectConfigContent(isOpenLoading: boolean, linuiConfigName: st
     "setting": {
         "urlCheck": true,
         "es6": true,
-        "enhance": false,
+        "enhance": true,
         "postcss": true,
         "preloadBackgroundData": false,
         "minified": true,
