@@ -51,7 +51,7 @@ export default async function create(dirName: string) {
     // 获取package.json内容
     const packageJson = packageJsonContent({ name, linuiversion, version, description, cliversion: CLI_VERSION, cliname: CLI_NAME })
     // 获取project.config.json内容
-    const projectConfig = projectConfigContent(openLoading, USER_CONFIG_FILE_NAME)
+    const projectConfig = projectConfigContent(openLoading, USER_CONFIG_FILE_NAME, name)
     // 获取lin.config.json内容
     const linuiConfig = linuiConfigContent(LIN_UI_DIR, MINI_PROGRAM_DIR_NAME)
     // 项目跟路径

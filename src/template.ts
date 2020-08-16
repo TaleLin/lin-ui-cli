@@ -19,7 +19,7 @@ export function packageJsonContent({ name, version, linuiversion, description, c
 `
 }
 
-export function projectConfigContent(isOpenLoading: boolean, linuiConfigName: string) {
+export function projectConfigContent(isOpenLoading: boolean, linuiConfigName: string, projectname: string) {
     const scriptsContent = isOpenLoading ? `"scripts": {
         "beforeUpload": "npm run build"
     },` : ""
@@ -61,7 +61,7 @@ export function projectConfigContent(isOpenLoading: boolean, linuiConfigName: st
     "compileType": "miniprogram",
     "libVersion": "2.12.1",
     "appid": "",
-    "projectname": "lin-ui-template",
+    "projectname": "${projectname}",
     "debugOptions": {
         "hidedInDevtools": []
     },
