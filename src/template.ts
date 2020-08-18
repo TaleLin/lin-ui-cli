@@ -29,6 +29,9 @@ export function projectConfigContent(isOpenLoading: boolean, linuiConfigName: st
         "ignore": [{
             "type": "file",
             "value": "${linuiConfigName}"
+        }, {
+            "type": "file",
+            "value": ".gitignore"
         }]
     },
     "setting": {
