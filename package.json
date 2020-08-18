@@ -1,7 +1,7 @@
 {
   "name": "lin-ui-cli",
   "version": "0.1.0",
-  "description": "微信小程序按需打包脚手架",
+  "description": "Lin UI 按需加载脚手架",
   "main": "lib/index.js",
   "scripts": {
     "release": "tsc",
