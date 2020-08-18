@@ -94,7 +94,6 @@ export function deleteFolderRecursive(entry: string) {
 export function writeFile(path: string | PathLike, data: any) {
     try {
         writeFileSync(path, data)
-        Success(success('文件写入成功'))
     } catch (err) {
         Error(error(err))
         Error(error('文件写入失败'))
