@@ -1,6 +1,6 @@
-import { readDirPath, parseJsonFiles, parseJsonFile, readDirGetFile, deleteFolderRecursive, copyFolder, checkFileExistsAndCreate, checkFileExists, writeFile } from './file-handle'
+import { readDirPath, parseJsonFiles, parseJsonFile, readDirGetFile, checkFileExistsAndCreate, writeFile } from './file-handle'
 import { findJson, getComponentsName, difference, union, intersect, formatJsonByFile, deWeight } from './utils';
-import { BASE_DIR, NODE_MODULES_LIN_UI_DIR, MINI_PROGRAM_LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, NODE_MODULES_DIR_NAME, LIN_UI_DIR, CORE_DIRS, USER_CONFIG_FILE, USER_CONFIG_FILE_NAME } from './config'
+import { BASE_DIR, MINI_PROGRAM_LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, NODE_MODULES_DIR_NAME, LIN_UI_DIR, CORE_DIRS, USER_CONFIG_FILE, USER_CONFIG_FILE_NAME } from './config'
 import { AppJson, PageJson, ProjectConfigInterface, PackOptionsIgnore } from './interface'
 import { checkFileExistsAndCreateType } from './enum'
 import { Success, Start, Error, success, error, primary, warn } from './tip-style'

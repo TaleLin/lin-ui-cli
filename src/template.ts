@@ -7,7 +7,7 @@ export function packageJsonContent({ name, version, linuiversion, description, c
     "main": "app.js",
     "dependencies": {
         "lin-ui": "^${linuiversion}",
-        "${cliname}: "^${cliversion}"
+        "${cliname}": "^${cliversion}"
     },
     "devDependencies": {},
     "scripts": {
@@ -98,9 +98,8 @@ export function projectConfigContent(isOpenLoading: boolean, linuiConfigName: st
 }`
 }
 
-export function linuiConfigContent(linuiDir: string, miniprogramDir: string) {
+export function linuiConfigContent() {
     return `{
-    "linUiDir": "${linuiDir}",
-    "miniprogramNpmDir": "${miniprogramDir}"
+    "linUiDir": "miniprogram_npm/lin-ui"
 }`
 }
