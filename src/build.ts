@@ -81,13 +81,13 @@ function getUseComponents() {
     // 拿到用户实际用到的页面
     const appJsonPage = getAppJsonPages()
     // 根据交集获取到所有注册的页面
-    const usePagesPath = intersect(pathArr, appJsonPage)
+    const usePagesPath = intersect<string>(pathArr, appJsonPage)
     // 获取所有的json文件
     const jsonFileArr = findJson(pathArr)
     // 获取用户自定义组件
     const userCustomComponents = getUserCustomComponentsPath(jsonFileArr)
     // 合并使用的页面以及用户所有自定义组件
-    const useAllPaths = union(usePagesPath, userCustomComponents)
+    const useAllPaths = union<string>(usePagesPath, userCustomComponents)
     // 解析出所有的json文件
     const pagesJson = parseJsonFiles(useAllPaths)
     // 获取使用到组件名
@@ -95,9 +95,9 @@ function getUseComponents() {
     // Set包装
     let result = new Set([...componentsName])
     // 获取所有组件及依赖的组件
-    result = union(getDependComponents(componentsName), result)
+    result = union<string>(getDependComponents(componentsName), result)
     // 合并核心文件
-    result = union(result, CORE_DIRS)
+    result = union<string>(result, CORE_DIRS)
     return result
 }
 
@@ -111,7 +111,7 @@ export default function build() {
         let useComponents = getUseComponents()
         const linuiComponents = new Set([...readDirGetFile(`${MINI_PROGRAM_LIN_UI_DIR}/`)])
         // 通过与组件存放目录差集获取所有未使用组件
-        let differenceComponents = difference(useComponents, linuiComponents)
+        let differenceComponents = difference<string>(useComponents, linuiComponents)
         const newIgnore: Set<PackOptionsIgnore> = new Set()
         for (let component of differenceComponents) {
             Start(primary(`${success(`正在处理未使用组件`)}           ${component}`))
@@ -135,7 +135,7 @@ export default function build() {
             value: USER_CONFIG_FILE_NAME,
             type: "file"
         })
-        const resultIgnore = deWeight(union(oldIgnore, newIgnore), "value")
+        const resultIgnore = deWeight(union<PackOptionsIgnore>(oldIgnore, newIgnore), "value")
         projectConfig.packOptions.ignore = [...resultIgnore]
         writeFile(projectConfigFile, formatJsonByFile(projectConfig))
         Success(success('success'))

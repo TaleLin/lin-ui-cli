@@ -86,11 +86,12 @@ export function getComponentsName(pagesJson: Array<PageJson> | PageJson, isNodeM
 /**
  * @name 差集
  * @export
- * @param {Set<any>} current
- * @param {Set<any>} target
- * @returns {Set<any>}
+ * @template T
+ * @param {Set<T>} current
+ * @param {Set<T>} target
+ * @returns {Set<T>}
  */
-export function difference(current: Set<any>, target: Set<any>): Set<any> {
+export function difference<T>(current: Set<T>, target: Set<T>): Set<T> {
     return new Set(
         [...target].filter(x => !current.has(x))
     )
@@ -99,32 +100,35 @@ export function difference(current: Set<any>, target: Set<any>): Set<any> {
 /**
  * @name 获取交集
  * @export
- * @param {Set<any>} current
- * @param {Set<any>} target
- * @returns {Set<any>}
+ * @template T
+ * @param {Set<T>} current
+ * @param {Set<T>} target
+ * @returns {Set<T>}
  */
-export function intersect(current: Set<any>, target: Set<any>): Set<any> {
+export function intersect<T>(current: Set<T>, target: Set<T>): Set<T> {
     return new Set([...target].filter(x => current.has(x)))
 }
 
 /**
  * @name 获取并集
  * @export
- * @param {Set<any>} current
- * @param {Set<any>} target
- * @returns {Set<any>}
+ * @template T
+ * @param {Set<T>} current
+ * @param {Set<T>} target
+ * @returns {Set<T>}
  */
-export function union(current: Set<any>, target: Set<any>): Set<any> {
+export function union<T>(current: Set<T>, target: Set<T>): Set<T> {
     return new Set([...current, ...target])
 }
 
 /**
  * @name 格式化json
  * @export
- * @param {any} data
+ * @template T
+ * @param {T} data
  * @returns {string}
  */
-export function formatJsonByFile(data: any): string {
+export function formatJsonByFile<T extends Object>(data: T): string {
     return JSON.stringify(data, null, 2)
 }
 

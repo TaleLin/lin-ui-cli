@@ -28,34 +28,38 @@ export declare function getComponentsName(pagesJson: Array<PageJson> | PageJson,
 /**
  * @name 差集
  * @export
- * @param {Set<any>} current
- * @param {Set<any>} target
- * @returns {Set<any>}
+ * @template T
+ * @param {Set<T>} current
+ * @param {Set<T>} target
+ * @returns {Set<T>}
  */
-export declare function difference(current: Set<any>, target: Set<any>): Set<any>;
+export declare function difference<T>(current: Set<T>, target: Set<T>): Set<T>;
 /**
  * @name 获取交集
  * @export
- * @param {Set<any>} current
- * @param {Set<any>} target
- * @returns {Set<any>}
+ * @template T
+ * @param {Set<T>} current
+ * @param {Set<T>} target
+ * @returns {Set<T>}
  */
-export declare function intersect(current: Set<any>, target: Set<any>): Set<any>;
+export declare function intersect<T>(current: Set<T>, target: Set<T>): Set<T>;
 /**
  * @name 获取并集
  * @export
- * @param {Set<any>} current
- * @param {Set<any>} target
- * @returns {Set<any>}
+ * @template T
+ * @param {Set<T>} current
+ * @param {Set<T>} target
+ * @returns {Set<T>}
  */
-export declare function union(current: Set<any>, target: Set<any>): Set<any>;
+export declare function union<T>(current: Set<T>, target: Set<T>): Set<T>;
 /**
  * @name 格式化json
  * @export
- * @param {any} data
+ * @template T
+ * @param {T} data
  * @returns {string}
  */
-export declare function formatJsonByFile(data: any): string;
+export declare function formatJsonByFile<T extends Object>(data: T): string;
 /**
  * @name 数组对象去重
  * @export
