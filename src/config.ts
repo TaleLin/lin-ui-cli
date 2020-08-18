@@ -9,7 +9,7 @@ export const USER_CONFIG_FILE_NAME = 'lin-ui.config.json'
 export const USER_CONFIG_FILE = BASE_DIR + '/' + USER_CONFIG_FILE_NAME
 
 const userConfig = parseJsonFile(USER_CONFIG_FILE) || {}
-const linUiDir: Array<string> = userConfig['linUiDir'] ? userConfig['linUiDir'].split('/') : []
+const linUiDir: Array<string> = userConfig['lib'] ? userConfig['lib'].split('/') : []
 
 export const LIN_UI_DIR = linUiDir.pop() || 'lin-ui'
 export const NODE_MODULES_DIR_NAME = 'node_modules'

@@ -103,6 +103,6 @@ export function projectConfigContent(isOpenLoading: boolean, linuiConfigName: st
 
 export function linuiConfigContent() {
     return `{
-    "linUiDir": "miniprogram_npm/lin-ui"
+    "lib": "miniprogram_npm/lin-ui"
 }`
 }
