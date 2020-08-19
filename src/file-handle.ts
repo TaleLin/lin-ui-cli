@@ -1,7 +1,7 @@
 import { readdirSync, statSync, writeFileSync, PathLike, existsSync, unlinkSync, mkdirSync, rmdirSync, createReadStream, accessSync, createWriteStream, constants, readFileSync } from 'fs'
 import { join } from 'path'
 import { checkFileExistsAndCreateType } from './enum'
-import { Error, error, Warn, warn, Success, success } from './tip-style'
+import { Error, error, Warn, warn } from './tip-style'
 const pathList: Set<string> = new Set()
 /**
  * @name 读取目录下所有文件

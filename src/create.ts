@@ -1,6 +1,6 @@
 import { copyFolder, checkFileExistsAndCreate } from './file-handle'
 import { checkFileExistsAndCreateType } from './enum'
-import { CNPM_BASE_URL, LIN_UI_DIR, MINI_PROGRAM_DIR_NAME, CLI_VERSION, USER_CONFIG_FILE_NAME, CLI_NAME, MINI_VERSION_URL } from './config'
+import { CNPM_BASE_URL, CLI_VERSION, USER_CONFIG_FILE_NAME, CLI_NAME, MINI_VERSION_URL } from './config'
 import { packageJsonContent, projectConfigContent, linuiConfigContent } from './template'
 import { PromptInput } from './interface'
 import { join } from 'path'
