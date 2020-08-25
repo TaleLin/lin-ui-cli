@@ -11,7 +11,7 @@ export function packageJsonContent({ name, version, linuiversion, description, c
     },
     "devDependencies": {},
     "scripts": {
-        "build": "${cliname} build"
+        "load": "${cliname} load"
     },
     "author": "",
     "license": "ISC"
@@ -21,7 +21,7 @@ export function packageJsonContent({ name, version, linuiversion, description, c
 
 export function projectConfigContent(isOpenLoading: boolean, linuiConfigName: string, projectname: string, miniVersion: string) {
     const scriptsContent = isOpenLoading ? `"scripts": {
-        "beforeUpload": "npm run build"
+        "beforeUpload": "npm run load"
     },` : ""
     return `{
     "description": "项目配置文件",

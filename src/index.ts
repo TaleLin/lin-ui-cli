@@ -26,7 +26,7 @@ program
     .version(CLI_VERSION, '-v, --version')
     .usage('<command> [options]')
 program
-    .command('build')
+    .command('load')
     .description('build lin ui of load on demand')
     .action(build)
 program
