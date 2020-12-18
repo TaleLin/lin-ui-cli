@@ -6,10 +6,11 @@ export function packageJsonContent({ name, version, linuiversion, description, c
     "description": "${description}",
     "main": "app.js",
     "dependencies": {
-        "lin-ui": "^${linuiversion}",
+        "lin-ui": "^${linuiversion}"
+    },
+    "devDependencies": {
         "${cliname}": "^${cliversion}"
     },
-    "devDependencies": {},
     "scripts": {
         "load": "${cliname} load"
     },
