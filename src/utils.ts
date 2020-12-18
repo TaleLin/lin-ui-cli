@@ -27,7 +27,8 @@ export function findJson(pathArr: Set<string>): Set<string> {
  * @returns {(string | null)}
  */
 export function getStr(str: string, start: string, end: string): string | null {
-    let res = str.match(new RegExp(`${start}(.*?)${end}`))
+    const reg = new RegExp(`${start}(.*?)${end}`)
+    let res = str.match(reg)
     return res ? res[1] : null
 }
 
@@ -75,10 +76,21 @@ export function getComponentsName(pagesJson: Array<PageJson> | PageJson, isNodeM
         }
     }
     componentsPath.forEach((item: string) => {
-        const component = getStr(item, path, '/index')
+        // 当为 /miniprogram_npm/lin-ui/button/index 时
+        const componentWithIndex = getStr(item, path, '/index')
+        if (componentWithIndex) {
+            names.add(componentWithIndex)
+            return
+        }
+        // 当为 /miniprogram_npm/lin-ui/button/ 时
+        const component = getStr(item, path, '/')
         if (component) {
             names.add(component)
+            return
         }
+        // 当为 /miniprogram_npm/lin-ui/button 时
+        let arr = item.split(path)
+        names.add(arr[arr.length - 1])
     })
     return names
 }
