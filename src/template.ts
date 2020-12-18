@@ -22,7 +22,7 @@ export function packageJsonContent({ name, version, linuiversion, description, c
 
 export function projectConfigContent(isOpenLoading: boolean, linuiConfigName: string, projectname: string, miniVersion: string) {
     const scriptsContent = isOpenLoading ? `"scripts": {
-        "beforeUpload": "npm run load"
+        "beforeCompile": "npm run load"
     },` : ""
     return `{
     "description": "项目配置文件",
