@@ -6,7 +6,8 @@ import { PromptInput } from './interface'
 import { join } from 'path'
 import inquirer from 'inquirer'
 import axios from 'axios'
-import { Success, Error, error, primary, success } from './tip-style'
+import { Success, Error, error, primary, success, warn, Warn } from './tip-style'
+import shell from 'shelljs'
 
 const prompt = [
     {
@@ -90,8 +91,15 @@ export default async function create(dirName: string) {
         checkFileExistsAndCreate(linConfigPath, linuiConfig, checkFileExistsAndCreateType.FILE)
         // 复制项目文件
         copyFolder(currentPath, rootPath)
+        if (!shell.which('npm')) {
+            Warn(warn('Sorry, this script requires npm! Please install npm!'))
+            shell.exit(1);
+        }
+        Success(`${success(`Waiting...`)}`)
+        Success(`${success(`Dependencies are now being installed`)}`)
+        shell.cd(dirName).exec('npm install')
         Success(`${success(`Successfully created project ${primary(name)}, directory name is ${primary(dirName)}`)}`)
-        Success(`${success(`Next: Please run ${primary(`cd ${dirName} && npm install or yarn`)}`)}`)
+        shell.exit(1)
     } catch (err) {
         Error(error('create error'))
         Error(error(err))
