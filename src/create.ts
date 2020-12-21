@@ -1,6 +1,6 @@
 import { copyFolder, checkFileExistsAndCreate } from './file-handle'
 import { checkFileExistsAndCreateType } from './enum'
-import { CNPM_BASE_URL, CLI_VERSION, USER_CONFIG_FILE_NAME, CLI_NAME, MINI_VERSION_URL } from './config'
+import { CNPM_BASE_URL, CLI_VERSION, USER_CONFIG_FILE_NAME, CLI_NAME, MINI_VERSION_URL, MINI_PROGRAM_LIN_UI_DIR } from './config'
 import { packageJsonContent, projectConfigContent, linuiConfigContent } from './template'
 import { PromptInput } from './interface'
 import { join } from 'path'
@@ -98,6 +98,9 @@ export default async function create(dirName: string) {
         Success(`${success(`Waiting...`)}`)
         Success(`${success(`Dependencies are now being installed`)}`)
         shell.cd(dirName).exec('npm install')
+        checkFileExistsAndCreate(rootPath + '/miniprogram_npm')
+        checkFileExistsAndCreate(rootPath + '/miniprogram_npm/lin-ui')
+        copyFolder(`${rootPath}/node_modules/lin-ui/dist`, rootPath + '/miniprogram_npm/lin-ui')
         Success(`${success(`Successfully created project ${primary(name)}, directory name is ${primary(dirName)}`)}`)
         shell.exit(1)
     } catch (err) {
