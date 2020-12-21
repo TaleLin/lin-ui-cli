@@ -46,7 +46,8 @@ export interface PromptInput {
     name: string,
     version: string, 
     description: string, 
-    openLoading: boolean
+    openLoading: boolean,
+    linVersion: string
 }
 
 /**

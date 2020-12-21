@@ -25,7 +25,7 @@ const prompt = [
         type: 'confirm',
         name: 'openLoading',
         message: '是否开启按需加载?'
-    }
+    },
 ]
 
 /**
@@ -58,14 +58,21 @@ export default async function create(dirName: string) {
         default: dirName
     }
     prompt.unshift(nameOption)
-
-    const { name, version, description, openLoading }: PromptInput = await inquirer.prompt(prompt)
-    // 获取linui最新版本号
     const linuiversion = await getLinUiVersion()
+    const versionOption = {
+        type: 'input',
+        name: 'linVersion',
+        message: `请输入您期望安装的 LinUI 版本（默认为最新版）`,
+        default: linuiversion
+    }
+    prompt.push(versionOption)
+
+    const { name, version, description, openLoading, linVersion }: PromptInput = await inquirer.prompt(prompt)
+    // 获取linui最新版本号
     // 获取微信小程序稳定基础版本库
     const miniVersion = await getMiniVersion()
     // 获取package.json内容
-    const packageJson = packageJsonContent({ name, linuiversion, version, description, cliversion: CLI_VERSION, cliname: CLI_NAME })
+    const packageJson = packageJsonContent({ name, linuiversion: linVersion, version, description, cliversion: CLI_VERSION, cliname: CLI_NAME })
     // 获取project.config.json内容
     const projectConfig = projectConfigContent(openLoading, USER_CONFIG_FILE_NAME, name, miniVersion)
     // 获取lin.config.json内容

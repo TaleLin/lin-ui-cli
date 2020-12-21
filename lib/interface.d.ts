@@ -43,6 +43,7 @@ export interface PromptInput {
     version: string;
     description: string;
     openLoading: boolean;
+    linVersion: string;
 }
 /**
  * @name project.config.json
