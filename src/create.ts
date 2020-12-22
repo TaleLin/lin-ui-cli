@@ -109,7 +109,6 @@ export default async function create(dirName: string) {
         checkFileExistsAndCreate(rootPath + '/miniprogram_npm/lin-ui')
         copyFolder(`${rootPath}/node_modules/lin-ui/dist`, rootPath + '/miniprogram_npm/lin-ui')
         Success(`${success(`Successfully created project ${primary(name)}, directory name is ${primary(dirName)}`)}`)
-        shell.exit(1)
     } catch (err) {
         Error(error('create error'))
         Error(error(err))
