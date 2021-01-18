@@ -124,7 +124,7 @@ export default function build() {
         }
         const projectConfigFile = BASE_DIR + '/project.config.json'
         let projectConfig: ProjectConfigInterface = require(projectConfigFile)
-        const oldIgnore: Set<PackOptionsIgnore> = new Set([...projectConfig.packOptions.ignore])
+        // const oldIgnore: Set<PackOptionsIgnore> = new Set([...projectConfig.packOptions.ignore])
         // 忽略.gitignore打包
         newIgnore.add({
             value: ".gitignore",
@@ -135,8 +135,8 @@ export default function build() {
             value: USER_CONFIG_FILE_NAME,
             type: "file"
         })
-        const resultIgnore = deWeight(union<PackOptionsIgnore>(oldIgnore, newIgnore), "value")
-        projectConfig.packOptions.ignore = [...resultIgnore]
+        // const resultIgnore = deWeight(union<PackOptionsIgnore>(oldIgnore, newIgnore), "value")
+        projectConfig.packOptions.ignore = [...newIgnore]
         writeFile(projectConfigFile, formatJsonByFile(projectConfig))
         Success(success('success'))
     } catch (err) {
